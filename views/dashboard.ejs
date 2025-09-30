@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script  src="https://cdn.tailwindcss.com"></script>
+  
+</head>
+<body class="bg-gray-100">
+  <div class="p-6">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+      <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">Admin</span>
+    </header>
+
+    <!-- Dashboard Badges -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <% allUsers.forEach((user)=>{  %>
+      <div  class="bg-white p-6 rounded-xl shadow-md flex justify-between items-center">
+        <div>
+          <h2 class="text-gray-600">Users</h2>
+
+
+
+          <p class="text-2xl font-bold"><%= user.email%></p>
+                    <p class="text-2xl font-bold">active:<a onclick="chage()"><%= user.active%></a></p>
+
+        </div>
+     
+      </div>
+         <% }) %>
+
+      
+
+      
+    </div>
+  </div>
+</body>
+</html>
