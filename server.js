@@ -111,7 +111,7 @@ app.post('/login',async (req,res)=>{
     req.session.userEmail = userExsits.email
     
     
-   return res.render("users")
+   return res.render("users",{email})
   }else{
     res.send("invalid email and password")
   }
