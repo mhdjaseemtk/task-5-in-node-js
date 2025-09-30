@@ -25,7 +25,7 @@
 
 
           <p class="text-2xl font-bold"><%= user.email%></p>
-                    <p class="text-2xl font-bold">active:<a onclick="chage()"><%= user.active%></a></p>
+                    <p class="text-2xl font-bold bg-red">active:<button class="bg-red"  onclick="changeUser('<%= user.active%>','<%= user.email%>')"><%= user.active%></button></p>
 
         </div>
      
@@ -37,5 +37,28 @@
       
     </div>
   </div>
+
+
+
+
+
+
+
+
 </body>
 </html>
+
+
+<script>
+async function changeUser(btn, email ) {
+ 
+    const res = await fetch('/admin/change', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+
+  
+ 
+}
+</script>

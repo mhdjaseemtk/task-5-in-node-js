@@ -12,13 +12,14 @@ const app = express()
 
 dotenv.config()
 app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 app.set('view engine','ejs')
 
 
 
 
 const client = new MongoClient(process.env.MONGO_URL)
-let db;
+export let db;
 
  async function connectDB(){
 
@@ -34,7 +35,7 @@ app.use(session({
   resave:false,
   saveUninitialized:false,
   store:MongoStore.create({
-    client:client,
+    mongoUrl:process.env.MONGO_URL,
     dbName:"main_project",
     collectionName:"sessions"
   }),
@@ -139,7 +140,7 @@ app.get('/admin',adminauth, async (req,res)=>{
 function adminauth(req,res,next){
 if(req.session.userEmail == 'admin@gmail.com'){
   return next()}else{
-    return res.redirect('login')
+    return res.redirect('/login')
   }
 }
 
@@ -156,6 +157,15 @@ app.get('/logout',(req,res)=>{
 })
 
 
+
+
+app.post('/admin/change', async (req, res) => {
+ 
+    const { email } = req.body;
+
+   
+    await db.collection('user').updateOne( { email }, [{ $set: { active: { $not: "$active"}}}])
+});
 
 app.listen(process.env.PORT || 3000,()=>{
   console.log("server running");
